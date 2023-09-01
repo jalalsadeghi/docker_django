@@ -11,10 +11,10 @@ RUN python -m venv /opt/venv
 # Activate the virtual environment
 ENV PATH="/opt/venv/bin:$PATH"
     
-COPY base.txt /base.txt
+COPY requirements /requirements
 
 RUN pip install --upgrade pip && \
-    pip install -r /base.txt
+    pip install -r /requirements/base.txt
 
 
 # Operational stage
