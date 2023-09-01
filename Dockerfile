@@ -1,18 +1,31 @@
-FROM python:3.11.4-alpine3.18
+# Builder stage
+FROM python:3.12.0b4-alpine AS builder
 
-ENV PYTHONUNBUFFERED 1
-ENV CRYPTOGRAPHY_DONT_BUILD_RUST=1
+RUN apk update && \
+    apk add postgresql-client build-base libpq-dev postgresql-dev linux-headers libffi-dev libxslt-dev libxml2-dev \
+    libjpeg zlib-dev jpeg-dev gcc musl-dev libxslt libxml2
+    
+# create the virtual environment
+RUN python -m venv /opt/venv
+    
+# Activate the virtual environment
+ENV PATH="/opt/venv/bin:$PATH"
+    
+COPY base.txt /base.txt
+
+RUN pip install --upgrade pip && \
+    pip install -r /base.txt
 
 
-COPY ./requirements.txt /common-requirements.txt
+# Operational stage
+FROM python:3.12.0b4-alpine
 
+RUN apk update && \
+    apk add postgresql-client build-base libpq-dev postgresql-dev linux-headers libffi-dev libxslt-dev libxml2-dev
+    
+COPY --from=builder /opt/venv /opt/venv
 
-RUN python -m venv /py && \
-    /py/bin/pip install --upgrade pip
-RUN apk add --update --no-cache postgresql-client
-RUN apk add --update  postgresql-client build-base postgresql-dev musl-dev linux-headers libffi-dev libxslt-dev libxml2-dev
-RUN apk add --update --no-cache --virtual .tmp-deps \
-    build-base postgresql-dev musl-dev linux-headers libffi-dev libjpeg zlib-dev jpeg-dev gcc musl-dev libxslt libxml2
-
-
-RUN /py/bin/pip install -r /common-requirements.txt
+ENV PYTHONDONTWRITEBYTECODE=1 \
+    PYTHONUNBUFFERED=1 \
+    CRYPTOGRAPHY_DONT_BUILD_RUST=1 \
+    PATH="/opt/venv/bin:$PATH"
