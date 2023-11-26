@@ -1,6 +1,6 @@
 FROM python:3.11.6-alpine3.18
 
-LABEL org.opencontainers.image.authors="heman.1682@gmail.com"
+LABEL org.opencontainers.image.authors="jalal.a.sadeghi@gmail.com"
 LABEL version="0.1"
 
 
