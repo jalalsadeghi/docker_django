@@ -5,11 +5,11 @@ This repository contains Dockerfile and requirements.txt which is designed to su
 ## Let's break down each command
 The list of the Dokerfile supports building and installing PostgreSQL on Alpine Linux. Let's break down each command:
 
-### 1. RUN apk add --update --no-cache postgresql-client:
+#### 1. RUN apk add --update --no-cache postgresql-client:
 
 This command updates the Alpine Linux package repository and installs the PostgreSQL client package. The --no-cache flag ensures that the package is downloaded from the repository before being installed, preventing the use of a cached version if available.
 
-### 2. RUN apk add --update --no-cache postgresql-client build-base postgresql-dev musl-dev linux-headers libffi-dev libxslt-dev libxml2-dev:
+#### 2. RUN apk add --update --no-cache postgresql-client build-base postgresql-dev musl-dev linux-headers libffi-dev libxslt-dev libxml2-dev:
 
 This command installs several packages required for building PostgreSQL from source. These include:
 - `postgresql-client:` The PostgreSQL client package
@@ -21,7 +21,7 @@ This command installs several packages required for building PostgreSQL from sou
 - `libxslt-dev:` XSL Transformations (XSLT) development headers
 - `libxml2-dev:` XML library development headers
 
-### 3. RUN apk add --update --no-cache --virtual .tmp-deps \ build-base postgresql-dev musl-dev linux-headers libffi-dev libjpeg zlib-dev jpeg-dev gcc musl-dev libxslt libxml2:
+#### 3. RUN apk add --update --no-cache --virtual .tmp-deps \ build-base postgresql-dev musl-dev linux-headers libffi-dev libjpeg zlib-dev jpeg-dev gcc musl-dev libxslt libxml2:
 
 This command creates a temporary virtual environment named .tmp-deps and installs the same set of packages as the previous command within that environment. The --virtual flag isolates the installation from the host system, ensuring that the installed packages don't interfere with the system's packages.
 
