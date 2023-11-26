@@ -12,14 +12,14 @@ This command updates the Alpine Linux package repository and installs the Postgr
 ### 2. RUN apk add --update --no-cache postgresql-client build-base postgresql-dev musl-dev linux-headers libffi-dev libxslt-dev libxml2-dev:
 
 This command installs several packages required for building PostgreSQL from source. These include:
-- postgresql-client: The PostgreSQL client package
-- build-base: Essential build tools
-- postgresql-dev: PostgreSQL development headers
-- musl-dev: Musl libc development headers
-- linux-headers: Linux kernel headers
-- libffi-dev: Foreign function interface development headers
-- libxslt-dev: XSL Transformations (XSLT) development headers
-- libxml2-dev: XML library development headers
+- `postgresql-client:` The PostgreSQL client package
+- `build-base:` Essential build tools
+- `postgresql-dev:` PostgreSQL development headers
+- `musl-dev:` Musl libc development headers
+- `linux-headers:` Linux kernel headers
+- `libffi-dev:` Foreign function interface development headers
+- `libxslt-dev:` XSL Transformations (XSLT) development headers
+- `libxml2-dev:` XML library development headers
 
 ### 3. RUN apk add --update --no-cache --virtual .tmp-deps \ build-base postgresql-dev musl-dev linux-headers libffi-dev libjpeg zlib-dev jpeg-dev gcc musl-dev libxslt libxml2:
 
